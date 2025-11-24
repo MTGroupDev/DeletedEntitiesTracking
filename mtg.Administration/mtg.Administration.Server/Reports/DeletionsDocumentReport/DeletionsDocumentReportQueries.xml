@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<queries>
+  <query key="CreateTable">
+    <default><![CDATA[CREATE TABLE {0}
+(ReportSessionId varchar NOT NULL,
+DocumentId bigint NULL,
+DocumentName varchar NULL,
+Employee varchar NULL,
+HostName varchar NULL,
+Date TIMESTAMP NULL,
+EntityType varchar NULL,
+SourceType varchar NULL)]]></default>
+  </query>
+  <query key="GetDeletedEntity">
+    <default><![CDATA[DO $$ 
+DECLARE 
+    start_date timestamp := '{0}';
+    end_date timestamp := '{1}';
+    entity_type_filter varchar := '{2}';
+BEGIN
+    CREATE TEMPORARY TABLE IF NOT EXISTS tmp_result_table (
+        DocumentId BIGINT,
+        DocumentName varchar,
+        Employee varchar,
+        HostName varchar,
+        Date TIMESTAMP,
+        EntityType varchar,
+        SourceType varchar
+    ) ON COMMIT DROP;
+
+    TRUNCATE TABLE tmp_result_table;
+
+    INSERT INTO tmp_result_table (DocumentId, DocumentName, Employee, HostName, Date, EntityType, SourceType)
+    SELECT 
+        h.entityid as DocumentId,
+        h.comment as DocumentName,
+        r.name as Employee,
+        h.hostname as HostName,
+        h.historydate as Date,
+        h.EntityType as EntityType,
+        h.source_type as SourceType
+    FROM (
+        SELECT 
+            dh.entityid AS entityid, 
+            dh.comment AS comment, 
+            dh.user AS user, 
+            dh.hostname AS hostname,
+            dh.historydate AS historydate, 
+            dh.action AS action, 
+            dh.EntityType AS EntityType,
+            'Документы' as source_type
+        FROM sungero_content_dochistory AS dh
+        WHERE entity_type_filter = 'Документы' OR entity_type_filter = 'Все'
+        
+        UNION ALL
+        
+        SELECT 
+            dc.entityid AS entityid, 
+            dc.comment AS comment, 
+            dc.user AS user, 
+            dc.hostname AS hostname,
+            dc.historydate AS historydate, 
+            dc.action AS action, 
+            dc.EntityType AS EntityType,
+            'Записи справочников' as source_type
+        FROM Sungero_Core_DatabookHistory as dc
+        WHERE (entity_type_filter = 'Записи справочников' OR entity_type_filter = 'Все')
+            AND dc.EntityType != '271898c8-18ca-4192-9892-e27b273ce5fc'
+            AND dc.EntityType != 'f70d5828-e345-4111-9bdf-65a1a2189c43'
+            
+        UNION ALL
+        
+        SELECT 
+            wh.entityid AS entityid,
+            wh.comment AS comment,
+            wh.user AS user,
+            wh.hostname AS hostname,
+            wh.historydate AS historydate,
+            wh.action AS action,
+            wh.EntityType AS EntityType,
+            'Бизнес-процессы' as source_type
+        FROM sungero_wf_workflowhistory AS wh
+        WHERE entity_type_filter = 'Бизнес-процессы' OR entity_type_filter = 'Все'
+    ) AS h
+    JOIN sungero_core_recipient AS r ON h.user = r.id
+    WHERE h.historydate >= start_date AND h.historydate < end_date
+      AND LOWER(h.action) = 'delete'
+    ORDER BY h.source_type, h.historydate ASC;
+END $$;
+
+SELECT 
+    DdocumentId,
+    DocumentName,
+    Employee,
+    HostName,
+    Date,
+    EntityType,
+    SourceType
+FROM tmp_result_table
+ORDER BY Date ASC;]]></default>
+    <mssql><![CDATA[EXEC sp_executesql N'
+DROP TABLE IF EXISTS tmp_result_table;
+
+CREATE TABLE tmp_result_table
+(iddocument BIGINT,
+ documentname NVARCHAR(255),
+ employee NVARCHAR(255),
+ hostname NVARCHAR(255),
+ date datetime,
+ entitytypename NVARCHAR(255),
+ source_type NVARCHAR(255));
+
+INSERT INTO tmp_result_table (iddocument, documentname, employee, hostname, date, entitytypename, source_type)        
+SELECT 
+    h.entityid as iddocument,
+    h.comment as documentname,
+    r.name as employee,
+    h.hostname as hostname,
+    h.historydate as date,
+    h.EntityType as entitytypename,
+    h.source_type as source_type
+FROM (
+    SELECT entityid, comment, [User], hostname, historydate, action, EntityType, ''Документы'' as source_type
+    FROM sungero_content_dochistory WITH (NOLOCK)
+    WHERE (@Kind = ''Документы'' OR @Kind = ''Все'')
+    
+    UNION ALL
+    
+    SELECT entityid, comment, [User], hostname, historydate, action, EntityType, ''Записи справочников'' as source_type
+    FROM Sungero_Core_DatabookHistory WITH (NOLOCK)
+    WHERE (@Kind = ''Записи справочников'' OR @Kind = ''Все'')
+            AND EntityType != '271898c8-18ca-4192-9892-e27b273ce5fc'
+            AND EntityType != 'f70d5828-e345-4111-9bdf-65a1a2189c43'
+) AS h
+JOIN sungero_core_recipient AS r WITH (NOLOCK) ON h.[User] = r.id
+WHERE h.action = ''Delete'' 
+    AND h.historydate >= @p0 AND h.historydate < @p1
+GROUP BY h.entityid, h.comment, r.name, h.hostname, h.historydate, h.EntityType, h.source_type
+ORDER BY h.source_type, h.historydate ASC',
+N'@p0 datetime, @p1 datetime, @Kind nvarchar(50)', 
+@p0='{0}', @p1='{1}', @Kind='{2}';
+
+select 
+    iddocument,
+    documentname,
+    employee,
+    hostname,
+    date,
+    entitytypename,
+    source_type
+from tmp_result_table;]]></mssql>
+    <postgres><![CDATA[DO $$ 
+DECLARE 
+    start_date timestamp := '{0}';
+    end_date timestamp := '{1}';
+    entity_type_filter varchar := '{2}';
+BEGIN
+    CREATE TEMPORARY TABLE IF NOT EXISTS tmp_result_table (
+        iddocument BIGINT,
+        documentname varchar,
+        employee varchar,
+        hostname varchar,
+        date TIMESTAMP,
+        entitytype varchar,
+        source_type varchar
+    ) ON COMMIT DROP;
+
+    TRUNCATE TABLE tmp_result_table;
+
+    INSERT INTO tmp_result_table (iddocument, documentname, employee, hostname, date, entitytype, source_type)
+    SELECT 
+        h.entityid as iddocument,
+        h.comment as documentname,
+        r.name as employee,
+        h.hostname as hostname,
+        h.historydate as date,
+        h.EntityType as entitytype,
+        h.source_type as source_type
+    FROM (
+        SELECT 
+            dh.entityid AS entityid, 
+            dh.comment AS comment, 
+            dh.user AS user, 
+            dh.hostname AS hostname,
+            dh.historydate AS historydate, 
+            dh.action AS action, 
+            dh.EntityType AS EntityType,
+            'Документы' as source_type
+        FROM sungero_content_dochistory AS dh
+        WHERE entity_type_filter = 'Документы' OR entity_type_filter = 'Все'
+        
+        UNION ALL
+        
+        SELECT 
+            dc.entityid AS entityid, 
+            dc.comment AS comment, 
+            dc.user AS user, 
+            dc.hostname AS hostname,
+            dc.historydate AS historydate, 
+            dc.action AS action, 
+            dc.EntityType AS EntityType,
+            'Записи справочников' as source_type
+        FROM Sungero_Core_DatabookHistory as dc
+        WHERE (entity_type_filter = 'Записи справочников' OR entity_type_filter = 'Все')
+            AND dc.EntityType != '271898c8-18ca-4192-9892-e27b273ce5fc'
+            AND dc.EntityType != 'f70d5828-e345-4111-9bdf-65a1a2189c43'
+            
+        UNION ALL
+        
+        SELECT 
+            wh.entityid AS entityid,
+            wh.comment AS comment,
+            wh.user AS user,
+            wh.hostname AS hostname,
+            wh.historydate AS historydate,
+            wh.action AS action,
+            wh.EntityType AS EntityType,
+            'Задачи' as source_type
+        FROM sungero_wf_workflowhistory AS wh
+        WHERE entity_type_filter = 'Задачи' OR entity_type_filter = 'Все'
+    ) AS h
+    JOIN sungero_core_recipient AS r ON h.user = r.id
+    WHERE h.historydate >= start_date AND h.historydate < end_date
+      AND LOWER(h.action) = 'delete'
+    ORDER BY h.source_type, h.historydate ASC;
+END $$;
+
+SELECT 
+    iddocument,
+    documentname,
+    employee,
+    hostname,
+    date,
+    entitytype,
+    source_type
+FROM tmp_result_table
+ORDER BY date ASC;]]></postgres>
+  </query>
+  <query key="SelectTable">
+    <default><![CDATA[select *
+from Sungero_Reports_DeletionsEntity
+where ReportSessionId = @ReportSessionId
+ORDER BY SourceType, Date ASC]]></default>
+  </query>
+</queries>

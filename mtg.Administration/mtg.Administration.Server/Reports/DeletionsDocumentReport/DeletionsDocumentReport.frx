@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;FastReport.Compat.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;FastReport.DataVisualization.dll&#13;&#10;Sungero.Domain.Shared&#13;&#10;Sungero.CoreEntities.Shared&#13;&#10;Sungero.Reporting.Shared&#13;&#10;CommonLibrary&#13;&#10;Sungero.Localization&#13;&#10;Sungero.Declension&#13;&#10;Sungero.Domain.Interfaces&#13;&#10;mtg.Administration.Shared&#13;&#10;mtg.Administration.Server" ReportInfo.CreatorVersion="2024.2.19.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+using Sungero.Domain.Shared;
+using Sungero.CoreEntities;
+using Sungero.Core;
+using Resources = mtg.Administration.Reports.Resources;
+
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+  }
+}
+  </ScriptText>
+  <Dictionary>
+    <SungeroSqlDataConnection Name="Sungero_Connection" Restrictions="DontModify, DontEdit, DontDelete, HideAllProperties" ConnectionStringExpression="[SungeroConnectionString]">
+      <TableDataSource Name="Table" Alias="DeletionEntityInfo" DataType="System.Int32" Enabled="true" CanEdit="true" SelectCommand="${SelectTable}">
+        <Column Name="ReportSessionId" DataType="System.String" PropName="Column"/>
+        <Column Name="DocumentId" DataType="System.String" PropName="Column"/>
+        <Column Name="documentname" Alias="DocumentName" DataType="System.String" PropName="Column"/>
+        <Column Name="employee" Alias="Employee" DataType="System.String" PropName="Column"/>
+        <Column Name="hostname" Alias="HostName" DataType="System.String" PropName="Column"/>
+        <Column Name="date" Alias="Date" DataType="System.DateTime" PropName="Column"/>
+        <Column Name="entitytype" Alias="EntityType" DataType="System.String" PropName="Column"/>
+        <Column Name="SourceType" DataType="System.String" PropName="Column"/>
+        <CommandParameter Name="ReportSessionId" DataType="16" IsDbType="true" Expression="[ReportSessionId]"/>
+      </TableDataSource>
+    </SungeroSqlDataConnection>
+    <SungeroParameter Name="SungeroConnectionString" Restrictions="DontModify, DontEdit, DontDelete, HideAllProperties, DontShow" AsString="" Id="8a338cec-cfa9-4400-9b80-e518cc7ad119" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="ReportSessionId" AsString="" Id="ecc073ec-e1b5-4115-ae3a-7c668970f102" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="StartDate" AsString="" Id="a4de72b3-2241-4cf7-b2cc-9a98f14427cd" IsRequired="false" IsCollection="false" InternalDataType="System.DateTime" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="EndDate" AsString="" Id="3743f22e-14e8-4969-95af-c96333b814b3" IsRequired="false" IsCollection="false" InternalDataType="System.DateTime" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="Kind" AsString="" Id="5a86c8f2-43ba-491c-9e50-d2e4c8ba212b" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="Deleted" AsString="" Id="44dfac3e-5731-4c79-9abc-2ce375d3c487" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="103.95">
+      <TextObject Name="Text22" Top="18.9" Width="718.2" Height="18.9" CanGrow="true" GrowToBottom="true" Text="[mtg.Administration.Reports.Resources.DeletionsDocumentReport.ReportName]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt"/>
+      <TextObject Name="Text23" Top="56.7" Width="718.2" Height="18.9" CanGrow="true" GrowToBottom="true" Text="[mtg.Administration.Reports.Resources.DeletionsDocumentReport.PeriodHeaderFormat([StartDate].ToString(&quot;d&quot;), [EndDate].ToString(&quot;d&quot;))]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt"/>
+    </ReportTitleBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="130.85" Width="718.2" Height="28.35" Condition="[DeletionEntityInfo.SourceType]" SortOrder="None">
+      <TextObject Name="Text11" Width="718.2" Height="28.35" Border.Lines="All" Text="[DeletionEntityInfo.SourceType]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt"/>
+      <DataHeaderBand Name="DataHeader1" Top="107.95" Width="718.2" Height="18.9" CanGrow="true">
+        <TextObject Name="Text24" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[mtg.Administration.Reports.Resources.DeletionsDocumentReport.DateHeader]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt"/>
+        <TextObject Name="Text25" Left="113.4" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[mtg.Administration.Reports.Resources.DeletionsDocumentReport.EmployeeHeader]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt"/>
+        <TextObject Name="Text26" Left="349.65" Width="122.85" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[mtg.Administration.Reports.Resources.DeletionsDocumentReport.TypeHeader]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt"/>
+        <TextObject Name="Text27" Left="472.5" Width="160.65" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[mtg.Administration.Reports.Resources.DeletionsDocumentReport.NameHeader]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt"/>
+        <TextObject Name="Text28" Left="633.15" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[mtg.Administration.Reports.Resources.DeletionsDocumentReport.IdHeader]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt"/>
+        <TextObject Name="Text29" Left="226.8" Width="122.85" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[mtg.Administration.Reports.Resources.DeletionsDocumentReport.HostName]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt"/>
+      </DataHeaderBand>
+      <DataBand Name="Data1" Top="163.2" Width="718.2" Height="18.9" CanGrow="true" DataSource="Table">
+        <TextObject Name="Text12" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[DeletionEntityInfo.Date]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt">
+          <Formats>
+            <GeneralFormat/>
+            <GeneralFormat/>
+          </Formats>
+        </TextObject>
+        <TextObject Name="Text13" Left="113.4" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[DeletionEntityInfo.Employee]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt"/>
+        <TextObject Name="Text14" Left="349.65" Width="122.85" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[DeletionEntityInfo.EntityType]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt"/>
+        <TextObject Name="Text15" Left="472.5" Width="160.65" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[DeletionEntityInfo.DocumentName]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt"/>
+        <TextObject Name="Text16" Left="633.15" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[DeletionEntityInfo.DocumentId]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt"/>
+        <TextObject Name="Text30" Left="226.8" Width="122.85" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[DeletionEntityInfo.HostName]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt"/>
+      </DataBand>
+    </GroupHeaderBand>
+    <PageFooterBand Name="PageFooter1" Top="186.1" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>

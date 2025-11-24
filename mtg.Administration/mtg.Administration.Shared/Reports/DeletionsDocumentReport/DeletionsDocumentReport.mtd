@@ -1,0 +1,85 @@
+{
+  "$type": "Sungero.Metadata.ReportMetadata, Sungero.Reporting.Shared",
+  "NameGuid": "d8d5071f-9c32-46dc-bd27-82696232cc19",
+  "Name": "DeletionsDocumentReport",
+  "AssociatedGuid": "dea1e789-ddaf-4a9d-ac34-00bfc26423a2",
+  "BaseGuid": "cef9a810-3f30-4eca-9fe3-30992af0b818",
+  "DataSources": [],
+  "DefaultExportFormat": "Word",
+  "ExportFormats": [
+    "Pdf",
+    "Word",
+    "Excel"
+  ],
+  "HandledEvents": [
+    "BeforeExecuteServer",
+    "AfterExecuteServer",
+    "BeforeExecuteClient"
+  ],
+  "IconResourcesKeys": [],
+  "IntegrationServiceName": "CustomDeletionsDocumentReport",
+  "Overridden": [
+    "PublicStructures",
+    "DisplayName",
+    "ExportFormats",
+    "DefaultExportFormat",
+    "HandledEvents",
+    "Parameters",
+    "Description"
+  ],
+  "Parameters": [
+    {
+      "NameGuid": "ecc073ec-e1b5-4115-ae3a-7c668970f102",
+      "Name": "ReportSessionId",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "a4de72b3-2241-4cf7-b2cc-9a98f14427cd",
+      "Name": "StartDate",
+      "InternalDataTypeName": "System.DateTime",
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "3743f22e-14e8-4969-95af-c96333b814b3",
+      "Name": "EndDate",
+      "InternalDataTypeName": "System.DateTime",
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "5a86c8f2-43ba-491c-9e50-d2e4c8ba212b",
+      "Name": "Kind",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "44dfac3e-5731-4c79-9abc-2ce375d3c487",
+      "Name": "Deleted",
+      "InternalDataTypeName": "System.String"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [
+    "EmployeeHeader",
+    "IdHeader",
+    "NameHeader",
+    "PeriodHeader",
+    "ReportName",
+    "TypeHeader",
+    "AllSelect",
+    "DatabookTitle",
+    "DateHeader",
+    "DocumentTitle",
+    "ReportFormatName",
+    "HostName",
+    "CountObjects",
+    "EnterReportPeriod",
+    "StartDate",
+    "EndDate",
+    "TaskTitle"
+  ],
+  "Versions": [
+    {
+      "Type": "ReportMetadata",
+      "Number": 1
+    }
+  ]
+}

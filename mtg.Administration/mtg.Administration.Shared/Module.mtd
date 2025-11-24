@@ -1,0 +1,140 @@
+{
+  "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
+  "NameGuid": "dea1e789-ddaf-4a9d-ac34-00bfc26423a2",
+  "Name": "Administration",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "mtg.Administration.Client",
+  "ClientBaseAssemblyName": "mtg.Administration.ClientBase",
+  "ClientBaseNamespace": "mtg.Administration.ClientBase",
+  "ClientNamespace": "mtg.Administration.Client",
+  "Code": "Adminis",
+  "CompanyCode": "mtg",
+  "Cover": {
+    "NameGuid": "6e825fa7-2803-4336-b64b-d51206e59c59",
+    "Actions": [],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "d703d9b1-7a20-42f6-bdd7-7fd74ce9128c",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [],
+    "Header": {
+      "NameGuid": "3db51ed1-8873-40ec-8e53-da1abaef3471",
+      "BackgroundPosition": "Stretch"
+    },
+    "RemoteControls": [],
+    "Tabs": []
+  },
+  "Dependencies": [
+    {
+      "Id": "b7cb1a28-ec87-4b1a-b812-0522e9ffa9b8",
+      "IsSolutionModule": true,
+      "MaxVersion": "",
+      "MinVersion": ""
+    }
+  ],
+  "ExplorerTreeOrder": [
+    {
+      "ItemId": "d8d5071f-9c32-46dc-bd27-82696232cc19"
+    }
+  ],
+  "HandledEvents": [
+    "InitializingServer"
+  ],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "mtg.Administration",
+  "IsolatedAssemblyName": "mtg.Administration.Isolated",
+  "IsolatedNamespace": "mtg.Administration.Isolated",
+  "IsVisible": false,
+  "PublicFunctions": [
+    {
+      "Name": "CalculateMonth",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "month",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.DateTime",
+      "ReturnTypeFullName": "System.DateTime"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "mtg.Administration",
+  "ServerAssemblyName": "mtg.Administration.Server",
+  "ServerNamespace": "mtg.Administration.Server",
+  "SharedAssemblyName": "mtg.Administration.Shared",
+  "SharedNamespace": "mtg.Administration.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.0",
+  "Widgets": [
+    {
+      "NameGuid": "3c8061af-9925-4f45-9531-2676f11fb33b",
+      "Name": "DeletedObjects",
+      "Color": "WidgetColor1",
+      "WidgetItems": [
+        {
+          "$type": "Sungero.Metadata.WidgetChartMetadata, Sungero.Metadata",
+          "NameGuid": "26e42a59-9421-4925-ae79-5942dff973d8",
+          "Name": "Report",
+          "ChartHeight": 10,
+          "ChartType": "VerticalBar",
+          "HandledEvents": [
+            "GetValueServer",
+            "ExecuteClient"
+          ],
+          "SpecificationType": "Custom"
+        }
+      ],
+      "WidgetParameters": [
+        {
+          "$type": "Sungero.Metadata.WidgetEnumParameterMetadata, Sungero.Metadata",
+          "NameGuid": "1eb33f7b-c970-4c32-a7d3-c31599d34838",
+          "Name": "Period",
+          "DefaultValue": {
+            "NameGuid": "b7d8ecdc-440d-42fd-8bc1-bd88c085ae13",
+            "Name": "Month",
+            "Code": "Month"
+          },
+          "DirectValues": [
+            {
+              "NameGuid": "b7d8ecdc-440d-42fd-8bc1-bd88c085ae13",
+              "Name": "Month",
+              "Code": "Month"
+            },
+            {
+              "NameGuid": "f7149fd3-e285-4442-adbf-8bfb242eb8bf",
+              "Name": "ThreeMonths",
+              "Code": "ThreeMonths"
+            },
+            {
+              "NameGuid": "2ae09fb6-ab19-4d66-b4dc-dfc20be3587c",
+              "Name": "HalfYear",
+              "Code": "HalfYear"
+            },
+            {
+              "NameGuid": "16b1b8e0-e463-44fc-8a0f-485fc5e6751e",
+              "Name": "Year",
+              "Code": "Year"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Versions": [
+    {
+      "Type": "ModuleMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}
