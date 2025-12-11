@@ -25,7 +25,8 @@
     "DefaultExportFormat",
     "HandledEvents",
     "Parameters",
-    "Description"
+    "Description",
+    "PublicConstants"
   ],
   "Parameters": [
     {

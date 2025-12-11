@@ -31,5 +31,40 @@ namespace mtg.Administration.Constants
     /// GUID Типа "Задачи" для виджета.
     /// </summary>
     public static readonly Guid TaskGuid = new Guid("30a986af-916b-4088-bfb0-b9aa378e0a5a");
+    
+    /// <summary>
+    /// Количество месяцев для квартального периода.
+    /// </summary>
+    public const int QuarterMonths = 3;
+
+    /// <summary>
+    /// Количество месяцев для полугодового периода.
+    /// </summary>
+    public const int HalfYearMonths = 6;
+    
+    /// <summary>
+    /// Количество месяцев для годового периода.
+    /// </summary>
+    public const int YearMonths = 12;
+    
+    /// <summary>
+    /// Количество записей за один запрос.
+    /// </summary>
+    public const int PageSize = 1000;
+    
+    /// <summary>
+    /// Цвет отображения виджета для документов.
+    /// </summary>
+    public const string ColorDocuments = "#FF4800FF";
+    
+    /// <summary>
+    /// Цвет отображения виджета для справочников.
+    /// </summary>
+    public const string ColorDatabooks = "#FF00BFFF";
+    
+    /// <summary>
+    /// Цвет отображения виджета для задач.
+    /// </summary>
+    public const string ColorTasks = "#FFFFC300";
   }
 }

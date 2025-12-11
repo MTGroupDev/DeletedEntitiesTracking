@@ -16,24 +16,12 @@ namespace mtg.Administration.Client
       if (Guid.TryParse(e.SeriesId, out sid))
       {
         var report = mtg.Administration.Reports.GetDeletionsDocumentReport();
-        var startDate = Calendar.Today.BeginningOfMonth();
-        var endDate = Calendar.Today.EndOfMonth();
-        var month = 0;
+
+        // Получаем диапазон дат по выбранному периоду
+        var periodInfo = Administration.Functions.Module.Remote.GetPeriod(_parameters.Period.Value);
         
-        if (_parameters.Period.Value == mtg.Administration.Constants.Module.MonthName)
-          startDate = Calendar.Today.BeginningOfMonth();
-        else if (_parameters.Period.Value == mtg.Administration.Constants.Module.ThreeMonthsName)
-          month = 2;
-        else if (_parameters.Period.Value == mtg.Administration.Constants.Module.HalfYearName)
-          month = 5;
-        else if (_parameters.Period.Value == mtg.Administration.Constants.Module.YearName)
-          month = 11;
-        
-        if (month > 0)
-          startDate = mtg.Administration.PublicFunctions.Module.Remote.CalculateMonth(month);
-        
-        report.StartDate = startDate;
-        report.EndDate =  endDate;
+        report.StartDate = periodInfo.Start;
+        report.EndDate =  periodInfo.End;
         
         if (sid == mtg.Administration.Constants.Module.DocumentsGuid)
           report.Kind = mtg.Administration.Reports.Resources.DeletionsDocumentReport.DocumentTitle;

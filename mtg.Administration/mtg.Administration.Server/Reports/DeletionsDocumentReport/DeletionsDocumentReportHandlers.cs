@@ -21,15 +21,19 @@ namespace mtg.Administration
       Logger.Debug("DeletionsDocumentReport. Start.");
       
       var report = DeletionsDocumentReport;
-      var entities = mtg.Administration.Functions.Module.GetDeletedObjects(report.StartDate.Value.ToString("yyyy-MM-dd 00:00:00"),
-                                       report.EndDate.Value.NextDay().ToString("yyyy-MM-dd 00:00:00"),
-                                       report.Kind);
+      
+      if (report.StartDate.HasValue && report.EndDate.HasValue)
+      {
+        var entities = mtg.Administration.Functions.Module.GetDeletedObjects(report.StartDate.Value.ToString("yyyy-MM-dd 00:00:00"),
+                                                                             report.EndDate.Value.NextDay().ToString("yyyy-MM-dd 00:00:00"),
+                                                                             report.Kind);
 
-      var tableRows = mtg.Administration.Functions.Module.BuildDeletedObjectsTableRows(entities, report.ReportSessionId);
-      Sungero.Docflow.PublicFunctions.Module.WriteStructuresToTable(Constants.DeletionsDocumentReport.SourceTableName, tableRows);
+        var tableRows = mtg.Administration.Functions.Module.BuildDeletedObjectsTableRows(entities, report.ReportSessionId);
+        Sungero.Docflow.PublicFunctions.Module.WriteStructuresToTable(Constants.DeletionsDocumentReport.SourceTableName, tableRows);
+      }
       
       Logger.Debug("DeletionsDocumentReport. Done.");
     }
-   
+    
   }
 }

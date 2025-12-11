@@ -29,7 +29,7 @@ namespace FastReport
 }
   </ScriptText>
   <Dictionary>
-    <SungeroSqlDataConnection Name="Sungero_Connection" Restrictions="DontModify, DontEdit, DontDelete, HideAllProperties" ConnectionStringExpression="[SungeroConnectionString]">
+    <SungeroSqlDataConnection Name="Sungero_Connection" Restrictions="DontModify, DontEdit, DontDelete, HideAllProperties" ConnectionStringExpression="[SungeroConnectionString]" CommandTimeout="120">
       <TableDataSource Name="Table" Alias="DeletionEntityInfo" DataType="System.Int32" Enabled="true" CanEdit="true" SelectCommand="${SelectTable}">
         <Column Name="ReportSessionId" DataType="System.String" PropName="Column"/>
         <Column Name="DocumentId" DataType="System.String" PropName="Column"/>

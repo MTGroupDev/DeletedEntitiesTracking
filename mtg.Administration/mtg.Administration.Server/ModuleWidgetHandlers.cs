@@ -13,29 +13,13 @@ namespace mtg.Administration.Server
     {
       var tableRows = new List<mtg.Administration.Structures.DeletionsDocumentReport.TableRow>();
       var relationshipsInfo = new List<Structures.DeletionsDocumentReport.EntityInfo>();
-      var startDate = Calendar.Today.BeginningOfMonth().ToString("yyyy-MM-dd 00:00:00");
-      var endDateReport = Calendar.Today.EndOfMonth().NextDay().ToString("yyyy-MM-dd 00:00:00");
       var kind = mtg.Administration.Reports.Resources.DeletionsDocumentReport.AllSelect;
-      var month = 0;
       
-      if (_parameters.Period.Value == mtg.Administration.Constants.Module.MonthName)
-        startDate = Calendar.Today.BeginningOfMonth().ToString("yyyy-MM-dd 00:00:00");
-      else if (_parameters.Period.Value == mtg.Administration.Constants.Module.ThreeMonthsName)
-        month = 2;
-      else if (_parameters.Period.Value == mtg.Administration.Constants.Module.HalfYearName)
-        month = 5;
-      else if (_parameters.Period.Value == mtg.Administration.Constants.Module.YearName)
-        month = 11;
-      
-      if (month > 0)
-      {
-        var startDates = mtg.Administration.PublicFunctions.Module.Remote.CalculateMonth(month);
-        
-        startDate = startDates.ToString("yyyy-MM-dd 00:00:00");
-      }
+      // Получаем диапазон дат по выбранному периоду
+      var periodInfo = Administration.Functions.Module.GetPeriod(_parameters.Period.Value);
       
       //Запрос в БД, для получения всех удалённых объектов.
-      mtg.Administration.Functions.Module.GetAllRelationsFromDB(relationshipsInfo, startDate, endDateReport, kind);
+      mtg.Administration.Functions.Module.GetAllRelationsFromDB(relationshipsInfo, periodInfo.Start.ToString("yyyy-MM-dd 00:00:00"), periodInfo.End.ToString("yyyy-MM-dd 00:00:00"), kind);
 
       var objectCount =  relationshipsInfo.Count();
 
