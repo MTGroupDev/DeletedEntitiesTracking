@@ -1,0 +1,60 @@
+{
+  "$type": "Sungero.Metadata.SolutionMetadata, Sungero.Metadata",
+  "NameGuid": "b7cb1a28-ec87-4b1a-b812-0522e9ffa9b8",
+  "Name": "Solution",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "mtg.Solution.Client",
+  "ClientBaseAssemblyName": "mtg.Solution.ClientBase",
+  "ClientBaseNamespace": "mtg.Solution.ClientBase",
+  "ClientNamespace": "mtg.Solution.Client",
+  "Code": "Solutio",
+  "CompanyCode": "mtg",
+  "Cover": {
+    "NameGuid": "03611804-e368-4980-b8c2-dcfb5b7a3a0a",
+    "Actions": [],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "2c5a47b6-a8cd-4f68-a630-b27fe568b7b8",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [],
+    "Header": {
+      "NameGuid": "bcaa6c9e-d963-4010-86c4-75f4581f9704",
+      "BackgroundPosition": "Stretch"
+    },
+    "RemoteControls": [],
+    "Tabs": []
+  },
+  "DesktopViews": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "mtg.Solution",
+  "IsolatedAssemblyName": "mtg.Solution.Isolated",
+  "IsolatedNamespace": "mtg.Solution.Isolated",
+  "IsVisible": false,
+  "OrderedSpecialFolders": [],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "mtg.Solution",
+  "ServerAssemblyName": "mtg.Solution.Server",
+  "ServerNamespace": "mtg.Solution.Server",
+  "SharedAssemblyName": "mtg.Solution.Shared",
+  "SharedNamespace": "mtg.Solution.Shared",
+  "SpecialFolders": [],
+  "Version": "0.0.1.0",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "SolutionMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}
