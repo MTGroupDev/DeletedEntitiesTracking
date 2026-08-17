@@ -71,7 +71,7 @@
   "SharedAssemblyName": "mtg.Administration.Shared",
   "SharedNamespace": "mtg.Administration.Shared",
   "SpecialFolders": [],
-  "Version": "0.0.1.0",
+  "Version": "0.0.1.1",
   "Widgets": [
     {
       "NameGuid": "3c8061af-9925-4f45-9531-2676f11fb33b",

@@ -37,14 +37,12 @@
     {
       "NameGuid": "a4de72b3-2241-4cf7-b2cc-9a98f14427cd",
       "Name": "StartDate",
-      "InternalDataTypeName": "System.DateTime",
-      "IsSimpleDataType": true
+      "InternalDataTypeName": "System.DateTime"
     },
     {
       "NameGuid": "3743f22e-14e8-4969-95af-c96333b814b3",
       "Name": "EndDate",
-      "InternalDataTypeName": "System.DateTime",
-      "IsSimpleDataType": true
+      "InternalDataTypeName": "System.DateTime"
     },
     {
       "NameGuid": "5a86c8f2-43ba-491c-9e50-d2e4c8ba212b",
