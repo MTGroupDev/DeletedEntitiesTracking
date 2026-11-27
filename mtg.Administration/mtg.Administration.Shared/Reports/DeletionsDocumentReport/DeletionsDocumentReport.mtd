@@ -19,14 +19,14 @@
   "IconResourcesKeys": [],
   "IntegrationServiceName": "CustomDeletionsDocumentReport",
   "Overridden": [
-    "PublicStructures",
+    "DefaultExportFormat",
+    "Description",
     "DisplayName",
     "ExportFormats",
-    "DefaultExportFormat",
     "HandledEvents",
     "Parameters",
-    "Description",
-    "PublicConstants"
+    "PublicConstants",
+    "PublicStructures"
   ],
   "Parameters": [
     {
